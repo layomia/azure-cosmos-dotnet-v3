@@ -45,7 +45,7 @@ namespace Microsoft.Azure.Cosmos.Tests
             ServerBatchRequest batchRequest = await SinglePartitionKeyServerBatchRequest.CreateAsync(
                 new Cosmos.PartitionKey(partitionKey1),
                 new ArraySegment<ItemBatchOperation>(operations),
-                serializer: new CosmosJsonDotNetSerializer(),
+                serializer: new CosmosSystemTextJsonSerializer(),
                 cancellationToken: CancellationToken.None);
 
             Assert.AreEqual(2, batchRequest.Operations.Count);
@@ -81,7 +81,7 @@ namespace Microsoft.Azure.Cosmos.Tests
 
             MemoryStream responseContent = await new BatchResponsePayloadWriter(results).GeneratePayloadAsync();
 
-            CosmosSerializer serializer = new CosmosJsonDotNetSerializer();
+            CosmosSerializer serializer = new CosmosSystemTextJsonSerializer();
             SinglePartitionKeyServerBatchRequest batchRequest = await SinglePartitionKeyServerBatchRequest.CreateAsync(
                 partitionKey: Cosmos.PartitionKey.None,
                 operations: new ArraySegment<ItemBatchOperation>(

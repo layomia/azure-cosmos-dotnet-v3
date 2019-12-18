@@ -62,13 +62,17 @@ namespace Microsoft.Azure.Cosmos.Tests
         [TestMethod]
         public void OperationKindMatchesDirect()
         {
+#pragma warning disable IDE0009 // Member access should be qualified.
             AssertEnums<Cosmos.OperationKind, Documents.OperationKind>();
+#pragma warning restore IDE0009 // Member access should be qualified.
         }
 
         [TestMethod]
         public void TriggerOperationMatchesDirect()
         {
+#pragma warning disable IDE0009 // Member access should be qualified.
             AssertEnums<Cosmos.Scripts.TriggerOperation, Documents.TriggerOperation>();
+#pragma warning restore IDE0009 // Member access should be qualified.
         }
 
         [TestMethod]
@@ -242,7 +246,9 @@ namespace Microsoft.Azure.Cosmos.Tests
         [TestMethod]
         public void PartitionKeyDefinitionVersionValuesTest()
         {
+#pragma warning disable IDE0009 // Member access should be qualified.
             AssertEnums<Cosmos.PartitionKeyDefinitionVersion, Documents.PartitionKeyDefinitionVersion>();
+#pragma warning restore IDE0009 // Member access should be qualified.
         }
 
         [TestMethod]
@@ -394,7 +400,7 @@ namespace Microsoft.Azure.Cosmos.Tests
         {
             string containerJsonString = "{\"indexingPolicy\":{\"automatic\":true,\"indexingMode\":\"Consistent\",\"includedPaths\":[{\"path\":\"/*\",\"indexes\":[{\"dataType\":\"Number\",\"precision\":-1,\"kind\":\"Range\"},{\"dataType\":\"String\",\"precision\":-1,\"kind\":\"Range\"}]}],\"excludedPaths\":[{\"path\":\"/\\\"_etag\\\"/?\"}],\"compositeIndexes\":[],\"spatialIndexes\":[]},\"id\":\"MigrationTest\",\"partitionKey\":{\"paths\":[\"/id\"],\"kind\":\"Hash\"}}";
 
-            CosmosJsonDotNetSerializer cosmosSerializer = new CosmosJsonDotNetSerializer();
+            CosmosSystemTextJsonSerializer cosmosSerializer = new CosmosSystemTextJsonSerializer();
             ContainerProperties containerProperties = null;
             using (MemoryStream memory = new MemoryStream(Encoding.UTF8.GetBytes(containerJsonString)))
             {
@@ -501,7 +507,7 @@ namespace Microsoft.Azure.Cosmos.Tests
                 documentCollection.SaveTo(memoryStream);
                 memoryStream.Position = 0;
 
-                CosmosJsonDotNetSerializer cosmosSerializer = new CosmosJsonDotNetSerializer();
+                CosmosSystemTextJsonSerializer cosmosSerializer = new CosmosSystemTextJsonSerializer();
                 ContainerProperties containerProperties = cosmosSerializer.FromStream<ContainerProperties>(memoryStream);
 
                 Assert.IsNotNull(containerProperties);

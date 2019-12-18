@@ -18,6 +18,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
 
     [TestClass]
     [TestCategory("ChangeFeed")]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0008:Use explicit type", Justification = "<Pending>")]
     public class DocumentServiceLeaseUpdaterCosmosTests
     {
         [TestMethod]
@@ -27,7 +28,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
             Cosmos.PartitionKey partitionKey = new Cosmos.PartitionKey("1");
             DocumentServiceLeaseCore leaseToUpdate = new DocumentServiceLeaseCore();
 
-            Stream leaseStream = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate);
+            Stream leaseStream = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate);
 
             Mock<ContainerCore> mockedItems = new Mock<ContainerCore>();
             mockedItems.Setup(i => i.ReplaceItemStreamAsync(
@@ -84,7 +85,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                 {
                     return new ResponseMessage(HttpStatusCode.OK)
                     {
-                        Content = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate)
+                        Content = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate)
                     };
                 });
 
@@ -102,7 +103,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                 {
                     return Task.FromResult(new ResponseMessage(HttpStatusCode.OK)
                     {
-                        Content = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate)
+                        Content = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate)
                     });
                 });
 
@@ -145,7 +146,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                 {
                     return new ResponseMessage(HttpStatusCode.OK)
                     {
-                        Content = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate)
+                        Content = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate)
                     };
                 });
 
@@ -186,7 +187,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                 {
                     return new ResponseMessage(HttpStatusCode.OK)
                     {
-                        Content = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate)
+                        Content = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate)
                     };
                 });
 
@@ -204,7 +205,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                 {
                     return Task.FromResult(new ResponseMessage(HttpStatusCode.OK)
                     {
-                        Content = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate)
+                        Content = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate)
                     });
                 });
 
@@ -234,7 +235,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                 {
                     return new ResponseMessage(HttpStatusCode.OK)
                     {
-                        Content = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate)
+                        Content = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate)
                     };
                 });
 
@@ -252,7 +253,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                 {
                     return Task.FromResult(new ResponseMessage(HttpStatusCode.OK)
                     {
-                        Content = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate)
+                        Content = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate)
                     });
                 });
 
@@ -297,7 +298,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                 {
                     return Task.FromResult(new ResponseMessage(HttpStatusCode.OK)
                     {
-                        Content = new CosmosJsonDotNetSerializer().ToStream(leaseToUpdate)
+                        Content = new CosmosSystemTextJsonSerializer().ToStream(leaseToUpdate)
                     });
                 });
 

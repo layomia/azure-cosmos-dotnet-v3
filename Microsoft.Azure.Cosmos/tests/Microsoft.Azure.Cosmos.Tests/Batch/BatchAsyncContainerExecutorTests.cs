@@ -20,7 +20,7 @@ namespace Microsoft.Azure.Cosmos.Tests
     [TestClass]
     public class BatchAsyncContainerExecutorTests
     {
-        private static CosmosSerializer cosmosDefaultJsonSerializer = new CosmosJsonDotNetSerializer();
+        private static CosmosSerializer cosmosDefaultJsonSerializer = new CosmosSystemTextJsonSerializer();
 
         [TestMethod]
         public async Task RetryOnSplit()
@@ -43,7 +43,7 @@ namespace Microsoft.Azure.Cosmos.Tests
                 .Returns(this.GenerateSplitResponseAsync(itemBatchOperation))
                 .Returns(this.GenerateOkResponseAsync(itemBatchOperation));
 
-            mockedContext.Setup(c => c.CosmosSerializer).Returns(new CosmosJsonDotNetSerializer());
+            mockedContext.Setup(c => c.CosmosSerializer).Returns(new CosmosSystemTextJsonSerializer());
 
             Uri link = new Uri($"/dbs/db/colls/colls", UriKind.Relative);
             Mock<ContainerCore> mockContainer = new Mock<ContainerCore>();
@@ -109,7 +109,7 @@ namespace Microsoft.Azure.Cosmos.Tests
                 .Returns(this.GenerateCacheStaleResponseAsync(itemBatchOperation))
                 .Returns(this.GenerateOkResponseAsync(itemBatchOperation));
 
-            mockedContext.Setup(c => c.CosmosSerializer).Returns(new CosmosJsonDotNetSerializer());
+            mockedContext.Setup(c => c.CosmosSerializer).Returns(new CosmosSystemTextJsonSerializer());
 
             Uri link = new Uri($"/dbs/db/colls/colls", UriKind.Relative);
             Mock<ContainerCore> mockContainer = new Mock<ContainerCore>();
@@ -175,7 +175,7 @@ namespace Microsoft.Azure.Cosmos.Tests
                 .Returns(this.Generate429ResponseAsync(itemBatchOperation))
                 .Returns(this.GenerateOkResponseAsync(itemBatchOperation));
 
-            mockedContext.Setup(c => c.CosmosSerializer).Returns(new CosmosJsonDotNetSerializer());
+            mockedContext.Setup(c => c.CosmosSerializer).Returns(new CosmosSystemTextJsonSerializer());
 
             Uri link = new Uri($"/dbs/db/colls/colls", UriKind.Relative);
             Mock<ContainerCore> mockContainer = new Mock<ContainerCore>();
@@ -240,7 +240,7 @@ namespace Microsoft.Azure.Cosmos.Tests
                     It.IsAny<CancellationToken>()))
                 .Returns(this.GenerateOkResponseAsync(itemBatchOperation));
 
-            mockedContext.Setup(c => c.CosmosSerializer).Returns(new CosmosJsonDotNetSerializer());
+            mockedContext.Setup(c => c.CosmosSerializer).Returns(new CosmosSystemTextJsonSerializer());
 
             Uri link = new Uri($"/dbs/db/colls/colls", UriKind.Relative);
             Mock<ContainerCore> mockContainer = new Mock<ContainerCore>();
@@ -291,7 +291,7 @@ namespace Microsoft.Azure.Cosmos.Tests
             SinglePartitionKeyServerBatchRequest batchRequest = await SinglePartitionKeyServerBatchRequest.CreateAsync(
                 partitionKey: null,
                 operations: new ArraySegment<ItemBatchOperation>(arrayOperations),
-                serializer: new CosmosJsonDotNetSerializer(),
+                serializer: new CosmosSystemTextJsonSerializer(),
             cancellationToken: CancellationToken.None);
 
             ResponseMessage responseMessage = new ResponseMessage(HttpStatusCode.Gone)
@@ -331,7 +331,7 @@ namespace Microsoft.Azure.Cosmos.Tests
             SinglePartitionKeyServerBatchRequest batchRequest = await SinglePartitionKeyServerBatchRequest.CreateAsync(
                 partitionKey: null,
                 operations: new ArraySegment<ItemBatchOperation>(arrayOperations),
-                serializer: new CosmosJsonDotNetSerializer(),
+                serializer: new CosmosSystemTextJsonSerializer(),
             cancellationToken: CancellationToken.None);
 
             ResponseMessage responseMessage = new ResponseMessage(HttpStatusCode.Gone)
@@ -370,7 +370,7 @@ namespace Microsoft.Azure.Cosmos.Tests
             SinglePartitionKeyServerBatchRequest batchRequest = await SinglePartitionKeyServerBatchRequest.CreateAsync(
                 partitionKey: null,
                 operations: new ArraySegment<ItemBatchOperation>(arrayOperations),
-                serializer: new CosmosJsonDotNetSerializer(),
+                serializer: new CosmosSystemTextJsonSerializer(),
             cancellationToken: CancellationToken.None);
 
             ResponseMessage responseMessage = new ResponseMessage((HttpStatusCode)StatusCodes.TooManyRequests)
@@ -408,7 +408,7 @@ namespace Microsoft.Azure.Cosmos.Tests
             SinglePartitionKeyServerBatchRequest batchRequest = await SinglePartitionKeyServerBatchRequest.CreateAsync(
                 partitionKey: null,
                 operations: new ArraySegment<ItemBatchOperation>(arrayOperations),
-                serializer: new CosmosJsonDotNetSerializer(),
+                serializer: new CosmosSystemTextJsonSerializer(),
             cancellationToken: CancellationToken.None);
 
             ResponseMessage responseMessage = new ResponseMessage(HttpStatusCode.OK)

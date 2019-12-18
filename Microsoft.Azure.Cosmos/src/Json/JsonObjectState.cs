@@ -39,7 +39,9 @@ namespace Microsoft.Azure.Cosmos.Json
         /// <summary>
         /// The current JsonTokenType.
         /// </summary>
+#pragma warning disable IDE0032 // Use auto property
         private JsonTokenType currentTokenType;
+#pragma warning restore IDE0032 // Use auto property
 
         /// <summary>
         /// The current JsonObjectContext.

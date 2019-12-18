@@ -213,7 +213,7 @@ namespace Microsoft.Azure.Cosmos.Tests
         [TestMethod]
         public void GetCosmosSerializerWithWrapperOrDefaultTest()
         {
-            CosmosJsonDotNetSerializer serializer = new CosmosJsonDotNetSerializer();
+            CosmosSystemTextJsonSerializer serializer = new CosmosSystemTextJsonSerializer();
             CosmosClientOptions options = new CosmosClientOptions()
             {
                 Serializer = serializer
@@ -254,6 +254,9 @@ namespace Microsoft.Azure.Cosmos.Tests
 
             // Verify the custom settings are being honored
             dynamic testItem = new { id = "testid", description = (string)null, CamelCaseProperty = "TestCamelCase" };
+
+            testItem.id = "new";
+
             using (Stream stream = cosmosSerializer.ToStream<dynamic>(testItem))
             {
                 using (StreamReader sr = new StreamReader(stream))
@@ -272,7 +275,7 @@ namespace Microsoft.Azure.Cosmos.Tests
         {
             CosmosClientOptions options = new CosmosClientOptions()
             {
-                Serializer = new CosmosJsonDotNetSerializer()
+                Serializer = new CosmosSystemTextJsonSerializer()
             };
 
             options.SerializerOptions = new CosmosSerializationOptions();
@@ -287,7 +290,7 @@ namespace Microsoft.Azure.Cosmos.Tests
                 SerializerOptions = new CosmosSerializationOptions()
             };
 
-            options.Serializer = new CosmosJsonDotNetSerializer();
+            options.Serializer = new CosmosSystemTextJsonSerializer();
         }
 
         [TestMethod]

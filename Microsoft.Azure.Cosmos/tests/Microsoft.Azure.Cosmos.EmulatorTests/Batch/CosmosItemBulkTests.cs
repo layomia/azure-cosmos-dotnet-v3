@@ -13,7 +13,7 @@ namespace Microsoft.Azure.Cosmos.SDK.EmulatorTests
     [TestClass]
     public class CosmosItemBulkTests
     {
-        private static CosmosSerializer cosmosDefaultJsonSerializer = new CosmosJsonDotNetSerializer();
+        private static CosmosSerializer cosmosDefaultJsonSerializer = new CosmosSystemTextJsonSerializer();
 
         private Container container;
         private Database database;

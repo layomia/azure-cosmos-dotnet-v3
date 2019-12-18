@@ -9,6 +9,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.FeedManagement
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Threading;
@@ -19,6 +20,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.FeedManagement
     using Microsoft.Azure.Cosmos.Core.Trace;
     using Microsoft.Azure.Cosmos.Query.Core;
     using Microsoft.Azure.Documents;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
     internal sealed class RemainingWorkEstimatorCore : RemainingWorkEstimator

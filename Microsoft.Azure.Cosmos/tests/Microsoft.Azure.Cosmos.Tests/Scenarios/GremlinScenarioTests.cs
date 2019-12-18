@@ -651,7 +651,7 @@ namespace Microsoft.Azure.Cosmos.Scenarios
             QueryResponse<CosmosElement> cosmosElementQueryResponse =
                 QueryResponse<CosmosElement>.CreateResponse<CosmosElement>(
                     queryResponse,
-                    new CosmosJsonSerializerWrapper(new CosmosJsonDotNetSerializer()));
+                    new CosmosJsonSerializerWrapper(new CosmosSystemTextJsonSerializer()));
 
             // Assert that we are directly returned the lazy CosmosElements that we created earlier
             List<CosmosElement> responseCosmosElements = new List<CosmosElement>(cosmosElementQueryResponse.Resource);
@@ -733,7 +733,7 @@ namespace Microsoft.Azure.Cosmos.Scenarios
             QueryResponse<dynamic> cosmosElementQueryResponse =
                 QueryResponse<dynamic>.CreateResponse<dynamic>(
                     queryResponse,
-                    new CosmosJsonSerializerWrapper(new CosmosJsonDotNetSerializer()));
+                    new CosmosJsonSerializerWrapper(new CosmosSystemTextJsonSerializer()));
 
             // Assert that other objects (anything besides the lazy CosmosElements that we created earlier) are deserialized
             // from the backing CosmosElement contents rather than being directly returned as CosmosElements

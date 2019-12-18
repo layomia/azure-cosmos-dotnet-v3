@@ -54,15 +54,15 @@ namespace Microsoft.Azure.Cosmos.Tests
             SinglePartitionKeyServerBatchRequest batchRequest = await SinglePartitionKeyServerBatchRequest.CreateAsync(
                 partitionKey: null,
                 operations: new ArraySegment<ItemBatchOperation>(arrayOperations),
-                serializer: new CosmosJsonDotNetSerializer(),
+                serializer: new CosmosSystemTextJsonSerializer(),
             cancellationToken: default(CancellationToken));
 
             TransactionalBatchResponse batchresponse = await TransactionalBatchResponse.FromResponseMessageAsync(
                 new ResponseMessage(HttpStatusCode.OK) { Content = responseContent },
                 batchRequest,
-                new CosmosJsonDotNetSerializer());
+                new CosmosSystemTextJsonSerializer());
 
-            PartitionKeyRangeBatchResponse response = new PartitionKeyRangeBatchResponse(arrayOperations.Length, batchresponse, new CosmosJsonDotNetSerializer());
+            PartitionKeyRangeBatchResponse response = new PartitionKeyRangeBatchResponse(arrayOperations.Length, batchresponse, new CosmosSystemTextJsonSerializer());
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -120,7 +120,7 @@ namespace Microsoft.Azure.Cosmos.Tests
             SinglePartitionKeyServerBatchRequest batchRequest = await SinglePartitionKeyServerBatchRequest.CreateAsync(
                 partitionKey: null,
                 operations: new ArraySegment<ItemBatchOperation>(arrayOperations),
-                serializer: new CosmosJsonDotNetSerializer(),
+                serializer: new CosmosSystemTextJsonSerializer(),
             cancellationToken: default(CancellationToken));
 
             ResponseMessage response = new ResponseMessage(statusCode) { Content = responseContent };
@@ -129,7 +129,7 @@ namespace Microsoft.Azure.Cosmos.Tests
             TransactionalBatchResponse batchresponse = await TransactionalBatchResponse.FromResponseMessageAsync(
                 response,
                 batchRequest,
-                new CosmosJsonDotNetSerializer());
+                new CosmosSystemTextJsonSerializer());
 
             PartitionKeyRangeBatchExecutionResult result = new PartitionKeyRangeBatchExecutionResult("0", arrayOperations, batchresponse);
 

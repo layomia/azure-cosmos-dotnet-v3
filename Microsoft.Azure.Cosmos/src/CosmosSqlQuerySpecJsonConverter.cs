@@ -5,15 +5,15 @@
 namespace Microsoft.Azure.Cosmos
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
     using Microsoft.Azure.Cosmos.Query.Core;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// A custom serializer converter for SQL query spec
     /// </summary>
-    internal sealed class CosmosSqlQuerySpecJsonConverter : JsonConverter
+    internal sealed class CosmosSqlQuerySpecJsonConverter : JsonConverter<SqlParameter>
     {
         private readonly CosmosSerializer UserSerializer;
 
@@ -22,32 +22,25 @@ namespace Microsoft.Azure.Cosmos
             this.UserSerializer = userSerializer ?? throw new ArgumentNullException(nameof(userSerializer));
         }
 
-        public override bool CanConvert(Type objectType)
-        {
-            return typeof(SqlParameter) == objectType;
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override SqlParameter Read(ref Utf8JsonReader reader, Type objectType, JsonSerializerOptions options)
         {
             throw new NotImplementedException();
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, SqlParameter value, JsonSerializerOptions options)
         {
-            SqlParameter sqlParameter = (SqlParameter)value;
-
             writer.WriteStartObject();
             writer.WritePropertyName("name");
-            serializer.Serialize(writer, sqlParameter.Name);
+            JsonSerializer.Serialize(writer, value.Name, options);
             writer.WritePropertyName("value");
 
             // Use the user serializer for the parameter values so custom conversions are correctly handled
-            using (Stream str = this.UserSerializer.ToStream(sqlParameter.Value))
+            using (Stream str = this.UserSerializer.ToStream(value.Value))
             {
                 using (StreamReader streamReader = new StreamReader(str))
                 {
                     string parameterValue = streamReader.ReadToEnd();
-                    writer.WriteRawValue(parameterValue);
+                    writer.WriteStringValue(parameterValue);
                 }
             }
 
@@ -68,12 +61,10 @@ namespace Microsoft.Azure.Cosmos
                 return propertiesSerializer;
             }
 
-            JsonSerializerSettings settings = new JsonSerializerSettings()
-            {
-                Converters = new List<JsonConverter>() { new CosmosSqlQuerySpecJsonConverter(cosmosSerializer) }
-            };
+            JsonSerializerOptions options = new JsonSerializerOptions { };
+            options.Converters.Add(new CosmosSqlQuerySpecJsonConverter(cosmosSerializer));
 
-            return new CosmosJsonSerializerWrapper(new CosmosJsonDotNetSerializer(settings));
+            return new CosmosJsonSerializerWrapper(new CosmosSystemTextJsonSerializer(options));
         }
     }
 }

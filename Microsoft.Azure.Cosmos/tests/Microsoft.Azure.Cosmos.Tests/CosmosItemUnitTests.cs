@@ -171,9 +171,9 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 MockCosmosUtil.CreateMockCosmosClient(),
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 null,
                 new MockDocumentClient()
@@ -207,9 +207,9 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 MockCosmosUtil.CreateMockCosmosClient(),
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 null,
                 new MockDocumentClient()
@@ -243,9 +243,9 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 MockCosmosUtil.CreateMockCosmosClient(),
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 null,
                 new MockDocumentClient()
@@ -280,9 +280,9 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 MockCosmosUtil.CreateMockCosmosClient(),
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 null,
                 new MockDocumentClient()
@@ -316,9 +316,9 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 MockCosmosUtil.CreateMockCosmosClient(),
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 null,
                 new MockDocumentClient()
@@ -350,8 +350,8 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 cosmosClient,
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 cosmosClient.ResponseFactory,
                 null,
@@ -381,8 +381,8 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 cosmosClient,
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 cosmosClient.ResponseFactory,
                 null,
@@ -412,8 +412,8 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 cosmosClient,
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 cosmosClient.ResponseFactory,
                 null,
@@ -443,8 +443,8 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 cosmosClient,
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 cosmosClient.ResponseFactory,
                 null,
@@ -474,8 +474,8 @@ namespace Microsoft.Azure.Cosmos.Tests
             ClientContextCore clientContextCore = new ClientContextCore(
                 cosmosClient,
                 new CosmosClientOptions() { AllowBulkExecution = true },
-                new CosmosJsonDotNetSerializer(),
-                new CosmosJsonDotNetSerializer(),
+                new CosmosSystemTextJsonSerializer(),
+                new CosmosSystemTextJsonSerializer(),
                 null,
                 cosmosClient.ResponseFactory,
                 null,

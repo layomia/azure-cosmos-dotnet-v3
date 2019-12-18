@@ -54,7 +54,7 @@ namespace Microsoft.Azure.Cosmos
         /// <summary>
         /// Default request timeout
         /// </summary>
-        private static readonly CosmosSerializer propertiesSerializer = new CosmosJsonSerializerWrapper(new CosmosJsonDotNetSerializer());
+        private static readonly CosmosSerializer propertiesSerializer = new CosmosJsonSerializerWrapper(new CosmosSystemTextJsonSerializer());
 
         private int gatewayModeMaxConnectionLimit;
         private CosmosSerializationOptions serializerOptions;
@@ -514,8 +514,8 @@ namespace Microsoft.Azure.Cosmos
         {
             if (this.SerializerOptions != null)
             {
-                CosmosJsonDotNetSerializer cosmosJsonDotNetSerializer = new CosmosJsonDotNetSerializer(this.SerializerOptions);
-                return new CosmosJsonSerializerWrapper(cosmosJsonDotNetSerializer);
+                CosmosSystemTextJsonSerializer cosmosSystemTextJsonSerializer = new CosmosSystemTextJsonSerializer(this.SerializerOptions);
+                return new CosmosJsonSerializerWrapper(cosmosSystemTextJsonSerializer);
             }
             else
             {

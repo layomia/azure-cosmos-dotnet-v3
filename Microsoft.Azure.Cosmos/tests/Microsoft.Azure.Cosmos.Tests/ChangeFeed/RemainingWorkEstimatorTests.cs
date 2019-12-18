@@ -218,7 +218,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                     firstDocument
                 };
 
-                message.Content = new CosmosJsonDotNetSerializer().ToStream(cosmosFeedResponse);
+                message.Content = new CosmosSystemTextJsonSerializer().ToStream(cosmosFeedResponse);
             }
 
             return message;

@@ -83,7 +83,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
 
             ResponseMessage mockFeedResponse = new ResponseMessage()
             {
-                Content = new CosmosJsonDotNetSerializer().ToStream(cosmosFeedResponse)
+                Content = new CosmosSystemTextJsonSerializer().ToStream(cosmosFeedResponse)
             };
 
             Mock<FeedIterator> mockedQuery = new Mock<FeedIterator>();

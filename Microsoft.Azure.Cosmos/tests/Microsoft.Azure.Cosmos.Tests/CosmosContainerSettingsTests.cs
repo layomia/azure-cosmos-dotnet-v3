@@ -4,6 +4,7 @@
 
 namespace Microsoft.Azure.Cosmos
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
@@ -39,6 +40,7 @@ namespace Microsoft.Azure.Cosmos
         {
             ContainerProperties containerSettings = new ContainerProperties("TestContainer", "/partitionKey");
             Stream basic = MockCosmosUtil.Serializer.ToStream<ContainerProperties>(containerSettings);
+
             ContainerProperties response = MockCosmosUtil.Serializer.FromStream<ContainerProperties>(basic);
             Assert.AreEqual(containerSettings.Id, response.Id);
             Assert.AreEqual(containerSettings.PartitionKeyPath, response.PartitionKeyPath);

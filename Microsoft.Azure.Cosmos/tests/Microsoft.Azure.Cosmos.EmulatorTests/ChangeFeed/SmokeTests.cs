@@ -208,7 +208,7 @@ namespace Microsoft.Azure.Cosmos.SDK.EmulatorTests.ChangeFeed
 
         private class FailedUserSerializer : CosmosSerializer
         {
-            private readonly CosmosSerializer cosmosSerializer = new CosmosJsonDotNetSerializer();
+            private readonly CosmosSerializer cosmosSerializer = new CosmosSystemTextJsonSerializer();
             public override T FromStream<T>(Stream stream)
             {
                 // Only let changes serialization pass through

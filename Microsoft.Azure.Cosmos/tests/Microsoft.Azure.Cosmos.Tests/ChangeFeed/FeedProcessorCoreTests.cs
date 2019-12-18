@@ -94,7 +94,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
             mockIterator.Setup(i => i.ReadNextAsync(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(GetResponse(statusCode, false, subStatusCode));
 
-            FeedProcessorCore<MyDocument> processor = new FeedProcessorCore<MyDocument>(mockObserver.Object, mockIterator.Object, FeedProcessorCoreTests.DefaultSettings, mockCheckpointer.Object, new CosmosJsonDotNetSerializer());
+            FeedProcessorCore<MyDocument> processor = new FeedProcessorCore<MyDocument>(mockObserver.Object, mockIterator.Object, FeedProcessorCoreTests.DefaultSettings, mockCheckpointer.Object, new CosmosSystemTextJsonSerializer());
 
             await Assert.ThrowsExceptionAsync<FeedSplitException>(() => processor.RunAsync(cancellationTokenSource.Token));
         }
@@ -118,7 +118,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
                     document
                 };
 
-                message.Content = new CosmosJsonDotNetSerializer().ToStream(cosmosFeedResponse);
+                message.Content = new CosmosSystemTextJsonSerializer().ToStream(cosmosFeedResponse);
             }
 
             return message;
@@ -131,7 +131,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
 
         private class CustomSerializer : CosmosSerializer
         {
-            private CosmosSerializer cosmosSerializer = new CosmosJsonDotNetSerializer();
+            private CosmosSerializer cosmosSerializer = new CosmosSystemTextJsonSerializer();
             public int FromStreamCalled = 0;
             public int ToStreamCalled = 0;
 
@@ -150,7 +150,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
 
         private class CustomSerializerFails: CosmosSerializer
         {
-            private CosmosSerializer cosmosSerializer = new CosmosJsonDotNetSerializer();
+            private CosmosSerializer cosmosSerializer = new CosmosSystemTextJsonSerializer();
             public override T FromStream<T>(Stream stream)
             {
                 throw new CustomException();

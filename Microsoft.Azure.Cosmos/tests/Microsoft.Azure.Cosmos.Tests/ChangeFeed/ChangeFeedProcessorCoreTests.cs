@@ -54,7 +54,9 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void ApplyBuildConfiguration_ValidatesNullMonitoredContainer()
         {
+#pragma warning disable IDE0008 // Use explicit type
             var processor = ChangeFeedProcessorCoreTests.CreateProcessor(out Mock<ChangeFeedObserverFactory<MyDocument>> factory, out Mock<ChangeFeedObserver<MyDocument>> observer);
+#pragma warning restore IDE0008 // Use explicit type
             processor.ApplyBuildConfiguration(
                 Mock.Of<DocumentServiceLeaseStoreManager>(),
                 null,
@@ -230,7 +232,7 @@ namespace Microsoft.Azure.Cosmos.ChangeFeed.Tests
             Mock<CosmosClientContext> mockContext = new Mock<CosmosClientContext>();
             mockContext.Setup(x => x.ClientOptions).Returns(MockCosmosUtil.GetDefaultConfiguration());
             mockContext.Setup(x => x.DocumentClient).Returns(new MockDocumentClient());
-            mockContext.Setup(x => x.CosmosSerializer).Returns(new CosmosJsonDotNetSerializer());
+            mockContext.Setup(x => x.CosmosSerializer).Returns(new CosmosSystemTextJsonSerializer());
             mockContext.Setup(x => x.Client).Returns(mockClient.Object);
             return mockContext.Object;
         }

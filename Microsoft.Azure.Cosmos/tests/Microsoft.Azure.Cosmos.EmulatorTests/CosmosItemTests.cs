@@ -13,6 +13,7 @@ namespace Microsoft.Azure.Cosmos.SDK.EmulatorTests
     using System.Linq;
     using System.Net;
     using System.Text;
+    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Azure.Cosmos.Json;
@@ -99,10 +100,10 @@ namespace Microsoft.Azure.Cosmos.SDK.EmulatorTests
             // Create a client that ignore null
             CosmosClientOptions clientOptions = new CosmosClientOptions()
             {
-                Serializer = new CosmosJsonDotNetSerializer(
-                    new JsonSerializerSettings()
+                Serializer = new CosmosSystemTextJsonSerializer(
+                    new JsonSerializerOptions()
                     {
-                        NullValueHandling = NullValueHandling.Ignore
+                        IgnoreNullValues = true,
                     })
             };
 
@@ -511,10 +512,8 @@ namespace Microsoft.Azure.Cosmos.SDK.EmulatorTests
                 dictionary = keyValuePairs
             };
 
-            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings()
-            {
-                Converters = new List<JsonConverter>() { new CosmosSerializerHelper.FormatNumbersAsTextConverter() }
-            };
+            JsonSerializerOptions options = new JsonSerializerOptions() { };
+            options.Converters.Add(new CosmosSerializerHelper.FormatNumbersAsTextConverter());
 
             List<QueryDefinition> queryDefinitions = new List<QueryDefinition>()
             {
@@ -534,7 +533,7 @@ namespace Microsoft.Azure.Cosmos.SDK.EmulatorTests
             int toStreamCount = 0;
             int fromStreamCount = 0;
             CosmosSerializerHelper cosmosSerializerHelper = new CosmosSerializerHelper(
-                jsonSerializerSettings,
+                options,
                 toStreamCallBack: (itemValue) =>
                 {
                     Type itemType = itemValue?.GetType();
@@ -552,12 +551,12 @@ namespace Microsoft.Azure.Cosmos.SDK.EmulatorTests
                 },
                 fromStreamCallback: (item) => fromStreamCount++);
 
-            CosmosClientOptions options = new CosmosClientOptions()
+            CosmosClientOptions clientOptions = new CosmosClientOptions()
             {
                 Serializer = cosmosSerializerHelper
             };
 
-            CosmosClient clientSerializer = TestCommon.CreateCosmosClient(options);
+            CosmosClient clientSerializer = TestCommon.CreateCosmosClient(clientOptions);
             Container containerSerializer = clientSerializer.GetContainer(this.database.Id, this.Container.Id);
 
             try
@@ -754,7 +753,7 @@ namespace Microsoft.Azure.Cosmos.SDK.EmulatorTests
                 Assert.AreEqual(response.ContinuationToken, response.Headers.ContinuationToken);
 
                 Trace.TraceInformation($"ContinuationToken: {lastContinuationToken}");
-                JsonSerializer serializer = new JsonSerializer();
+                Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
 
                 using (StreamReader sr = new StreamReader(response.Content))
                 using (JsonTextReader jtr = new JsonTextReader(sr))

@@ -21,7 +21,7 @@ namespace Microsoft.Azure.Cosmos.Client.Core.Tests
 
     internal class MockCosmosUtil
     {
-        public static readonly CosmosSerializer Serializer = new CosmosJsonDotNetSerializer();
+        public static readonly CosmosSerializer Serializer = new CosmosSystemTextJsonSerializer();
 
         public static CosmosClient CreateMockCosmosClient(
             Action<CosmosClientBuilder> customizeClientBuilder = null,
